@@ -8,26 +8,26 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    LinearLayout changedScrin;
-    SeekBar redSeek;
-    SeekBar blueSeek;
-    SeekBar greenSeek;
-    TextView redText;
-    TextView blueText;
-    TextView greenText;
+    private LinearLayout changedScrin;
+    private SeekBar redSeek;
+    private SeekBar blueSeek;
+    private SeekBar greenSeek;
+    private TextView redText;
+    private TextView blueText;
+    private TextView greenText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        changedScrin = (LinearLayout) findViewById(R.id.changeColorLayout);
-        redSeek = (SeekBar) findViewById(R.id.redSeekBar);
-        blueSeek = (SeekBar) findViewById(R.id.blueSeekBar);
-        greenSeek = (SeekBar) findViewById(R.id.greenSeekBar);
-        redText = (TextView) findViewById(R.id.redText);
-        blueText = (TextView) findViewById(R.id.blueText);
-        greenText = (TextView) findViewById(R.id.greenText);
+        changedScrin = findViewById(R.id.changeColorLayout);
+        redSeek = findViewById(R.id.redSeekBar);
+        blueSeek = findViewById(R.id.blueSeekBar);
+        greenSeek = findViewById(R.id.greenSeekBar);
+        redText =  findViewById(R.id.redText);
+        blueText = findViewById(R.id.blueText);
+        greenText = findViewById(R.id.greenText);
         changeBackground();
         redSeek.setOnSeekBarChangeListener(seekBarChangeListener);
         greenSeek.setOnSeekBarChangeListener(seekBarChangeListener);
