@@ -1,12 +1,12 @@
 package com.example.elya.films;
 
 public class Film {
-    String title;
-    int imageId;
-    String description;
-    int rating;
-    boolean isLiked;
-    String wikiUrl;
+    private String title;
+    private int imageId;
+    private String description;
+    private int rating;
+    private boolean isLiked;
+    private String wikiUrl;
 
     public Film(String title, int imageId, String description, int rating, boolean isLiked, String wikiUrl) {
         this.title = title;
