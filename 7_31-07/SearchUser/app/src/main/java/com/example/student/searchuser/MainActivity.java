@@ -30,9 +30,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DataProvider.users.add(new User("GitHub", "descripion", "https://avatars1.githubusercontent.com/u/9919?s=200&v=4", "2222", "mail", 2f));
-                adapter = null;
-                adapter = new MyAdapter(DataProvider.users, MainActivity.this);
-                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+//                adapter = null;
+//                adapter = new MyAdapter(DataProvider.users, MainActivity.this);
+//                recyclerView.setAdapter(adapter);
             }
         });
 
