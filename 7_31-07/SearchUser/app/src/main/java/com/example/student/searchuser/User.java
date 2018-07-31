@@ -1,14 +1,17 @@
 package com.example.student.searchuser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private String name;
     private String description;
-    private String imageUrl;
+    private List<String> imageUrl = new ArrayList<>();
     private String phoneNumber;
     private String emailAddress;
     private float rating;
 
-    public User(String name, String description, String imageUrl, String phoneNumber, String emailAddress, float rating) {
+    public User(String name, String description, List<String> imageUrl, String phoneNumber, String emailAddress, float rating) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -33,11 +36,11 @@ public class User {
         this.description = description;
     }
 
-    public String getImageUrl() {
+    public List<String> getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(List<String> imageUrl) {
         this.imageUrl = imageUrl;
     }
 

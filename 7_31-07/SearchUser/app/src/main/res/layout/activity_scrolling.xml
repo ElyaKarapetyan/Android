@@ -42,15 +42,15 @@
     <include layout="@layout/content_scrolling" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabMail"
+        android:id="@+id/fabPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:src="@drawable/ic_phone1"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabPhone"
+        android:id="@+id/fabMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

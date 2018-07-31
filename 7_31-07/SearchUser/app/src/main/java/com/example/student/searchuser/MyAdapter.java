@@ -8,22 +8,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel>  implements Filterable {
     private List<User> users;
     private Context context;
     private List<User> filteredUsers;
-    public static final String URL_KEY = "ukey";
-    public static final String NAME_KEY = "nkey";
+    public static final String KEY = "key";
 
     public MyAdapter(List<User> users, Context context) {
         this.users = users;
@@ -42,7 +44,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel> {
         final User user = users.get(position);
         userHolder.name.setText(user.getName());
         userHolder.description.setText(user.getDescription());
-        Picasso.get().load(user.getImageUrl()).into(userHolder.image);
+        Picasso.get().load(user.getImageUrl().get(0)).into(userHolder.image);
 
         clickPhoneBtn(userHolder, user);
 
@@ -95,39 +97,37 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel> {
         return filteredUsers.size();
     }
 
-//    @Override
-//    public Filter getFilter() {
-//        return new Filter() {
-//            @Override
-//            protected FilterResults performFiltering(CharSequence charSequence) {
-//                String charString = charSequence.toString();
-//                if (charString.isEmpty()) {
-//                    filteredUsers = users;
-//                } else {
-//                    List<User> fiteredUsers2 = new ArrayList<>();
-//                    for (User row : users) {
-//                        if (row.getmName().toLowerCase().contains(charString.toLowerCase())) {
-//                            fiteredUsers2.add(row);
-//                        }
-//                    }
-//
-//                    filteredUsers = fiteredUsers2;
-//                }
-//
-//                FilterResults filterResults = new FilterResults();
-//                filterResults.values = filteredUsers;
-//                return filterResults;
-//
-//            }
-//
-//            @Override
-//            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-//                filteredUsers = (List<User>) filterResults.values;
-//
-//                notifyDataSetChanged();
-//            }
-//        };
-//    }
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    filteredUsers = users;
+                } else {
+                    List<User> fiteredUsers2 = new ArrayList<>();
+                    for (User row : users) {
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            fiteredUsers2.add(row);
+                        }
+                    }
+
+                    filteredUsers = fiteredUsers2;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredUsers;
+                return filterResults;
+
+            }
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                filteredUsers = (List<User>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public class UserModel extends RecyclerView.ViewHolder {
         private CircleImageView image;
@@ -152,11 +152,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel> {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    String url = filteredUsers.get(getAdapterPosition()).getImageUrl();
                     Intent intent = new Intent(context, ScrollingActivity.class);
-                    String name = users.get(position).getName();
-                    intent.putExtra(URL_KEY, url);
-                    intent.putExtra(NAME_KEY, name);
+                    intent.putExtra(KEY, position);
 
                     context.startActivity(intent);
                 }
