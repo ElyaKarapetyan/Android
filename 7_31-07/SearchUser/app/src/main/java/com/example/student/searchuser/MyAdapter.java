@@ -40,11 +40,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel> {
         return new UserModel(view);    }
 
     @Override
-    public void onBindViewHolder(@NonNull UserModel userHolder, int position) {
+    public void onBindViewHolder(@NonNull UserModel userHolder, final int position) {
         final User user = users.get(position);
         userHolder.name.setText(user.getName());
         userHolder.description.setText(user.getDescription());
         Picasso.get().load(user.getImageUrl()).into(userHolder.image);
+
         userHolder.phoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel> {
                 context.startActivity(intent);
             }
         });
+
         userHolder.emailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +65,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel> {
                 context.startActivity(intent);
             }
         });
+
+        userHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataProvider.users.remove(position);
+                MainActivity.adapter = null;
+                MainActivity.adapter = new MyAdapter(DataProvider.users, context);
+
+                MainActivity.recyclerView.setAdapter(MainActivity.adapter);
+                System.out.print("dd");
+            }
+        });
+
 
     }
 
@@ -112,6 +127,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel> {
         private ImageButton phoneBtn;
         private ImageButton emailBtn;
         private RatingBar ratingBar;
+        private ImageButton deleteBtn;
 
         public UserModel(@NonNull View itemView) {
             super(itemView);
@@ -121,6 +137,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel> {
             phoneBtn = itemView.findViewById(R.id.phoneBtn);
             emailBtn = itemView.findViewById(R.id.emailBtn);
             ratingBar = itemView.findViewById(R.id.rating);
+            deleteBtn = itemView.findViewById(R.id.deleteBtn);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

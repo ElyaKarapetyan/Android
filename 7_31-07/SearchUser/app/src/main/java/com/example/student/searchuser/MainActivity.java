@@ -14,8 +14,9 @@ import android.view.MenuItem;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private MyAdapter adapter;
+    public static MyAdapter adapter;
     private List<User> users;
+    public static RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +29,14 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                DataProvider.users.add(new User("GitHub", "descripion", "https://avatars1.githubusercontent.com/u/9919?s=200&v=4", "2222", "mail", 2f));
+                adapter = null;
+                adapter = new MyAdapter(DataProvider.users, MainActivity.this);
+                recyclerView.setAdapter(adapter);
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.rv);
+        recyclerView = findViewById(R.id.rv);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
 
         recyclerView.setHasFixedSize(true);
