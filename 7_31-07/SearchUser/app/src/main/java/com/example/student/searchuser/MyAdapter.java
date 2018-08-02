@@ -41,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.UserModel>  implem
 
     @Override
     public void onBindViewHolder(@NonNull UserModel userHolder, final int position) {
-        final User user = users.get(position);
+        final User user = filteredUsers.get(position);
         userHolder.name.setText(user.getName());
         userHolder.description.setText(user.getDescription());
         Picasso.get().load(user.getImageUrl().get(0)).into(userHolder.image);
